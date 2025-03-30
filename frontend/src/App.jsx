@@ -1,0 +1,89 @@
+import { useState } from 'react';
+import axios from 'axios';
+import './App.css';
+
+function App() {
+  const [url, setUrl] = useState('');
+  const [method, setMethod] = useState('GET');
+  const [headers, setHeaders] = useState('');
+  const [body, setBody] = useState('');
+  const [responseHeaders, setResponseHeaders] = useState('');
+  const [responseBody, setResponseBody] = useState('');
+  const [history, setHistory] = useState([]);
+
+  const handleSend = async () => {
+    try {
+      const parsedHeaders = headers
+        .split('\n')
+        .filter(line => line.trim() !== '')
+        .reduce((acc, line) => {
+          const [key, value] = line.split(':').map(str => str.trim());
+          acc[key] = value;
+          return acc;
+        }, {});
+
+      const response = await axios({
+        method,
+        url,
+        headers: parsedHeaders,
+        data: body,
+      });
+
+      setResponseHeaders(JSON.stringify(response.headers, null, 2));
+      setResponseBody(JSON.stringify(response.data, null, 2));
+
+      setHistory(prevHistory => [
+        { url, method, headers, body, responseHeaders: JSON.stringify(response.headers, null, 2), responseBody: JSON.stringify(response.data, null, 2) },
+        ...prevHistory,
+      ]);
+    } catch (error) {
+      setResponseHeaders(JSON.stringify(error.response ? error.response.headers : {}, null, 2));
+      setResponseBody(JSON.stringify(error.response ? error.response.data : error.message, null, 2));
+    }
+  };
+
+  return (
+    <div className="app">
+      <h1>My Postman</h1>
+      <div className="request-section">
+        <input type="text" placeholder="Enter URL" value={url} onChange={e => setUrl(e.target.value)} />
+        <select value={method} onChange={e => setMethod(e.target.value)}>
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+        <button onClick={handleSend}>Send</button>
+      </div>
+      <div className="headers-body">
+        <textarea placeholder="Headers (key: value, one per line)" value={headers} onChange={e => setHeaders(e.target.value)} />
+        <textarea placeholder="Body" value={body} onChange={e => setBody(e.target.value)} />
+      </div>
+      <div className="response-section">
+        <pre>Headers: {responseHeaders}</pre>
+        <pre>Body: {responseBody}</pre>
+      </div>
+      <div className="history-section">
+        <h2>History</h2>
+        <ul>
+          {history.map((item, index) => (
+            <li key={index}>
+              <button onClick={() => {
+                setUrl(item.url);
+                setMethod(item.method);
+                setHeaders(item.headers);
+                setBody(item.body);
+                setResponseHeaders(item.responseHeaders);
+                setResponseBody(item.responseBody);
+              }}>
+                {item.method} {item.url}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default App;

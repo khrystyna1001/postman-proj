@@ -1,0 +1,76 @@
+body {
+  margin: 0; /* Remove default body margins */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+.app {
+  font-family: sans-serif;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally within the app */
+  width: 80%; /* Limit width for better readability */
+  max-width: 800px; /* Maximum width */
+}
+
+.request-section {
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.request-section input,
+.request-section select,
+.request-section button {
+  margin-right: 10px;
+  padding: 8px;
+  flex: 1;
+}
+
+.headers-body {
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.headers-body textarea {
+  flex: 1;
+  margin-right: 10px;
+  min-height: 150px;
+}
+
+.response-section pre {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+.history-section {
+  width: 100%;
+}
+
+.history-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.history-section li {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.history-section li button {
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+}
+
+h1 {
+  text-align: center;
+}
