@@ -8,7 +8,12 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Welcome to your Postman backend!');
+});
+
 app.all('/proxy', async (req, res) => {
+  console.log('Received proxy request:', req.body);
   const { url, method, headers, body } = req.body;
   try {
     const response = await axios({
@@ -22,6 +27,7 @@ app.all('/proxy', async (req, res) => {
   } catch (error) {
     res.status(error.response?.status || 500).send(error.response?.data || { error: error.message });
   }
+  res.send(req.body)
 })
 
 app.listen(port, () => {

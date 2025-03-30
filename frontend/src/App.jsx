@@ -23,7 +23,7 @@ function App() {
         }, {});
 
       const response = await axios.post('http://localhost:3000/proxy', {
-        url,
+        url: url.trim(),
         method,
         headers: parsedHeaders,
         body,
