@@ -22,11 +22,11 @@ function App() {
           return acc;
         }, {});
 
-      const response = await axios({
-        method,
+      const response = await axios.post('http://localhost:3000/proxy', {
         url,
+        method,
         headers: parsedHeaders,
-        data: body,
+        body,
       });
 
       setResponseHeaders(JSON.stringify(response.headers, null, 2));
