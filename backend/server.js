@@ -15,21 +15,27 @@ app.get('/', (req, res) => {
 app.all('/proxy', async (req, res) => {
   console.log('Received proxy request:', req.body);
   const { url, method, headers, body } = req.body;
+
+  try {
+    new URL(url); // Validate URL
+  } catch (error) {
+    return res.status(400).json({ error: 'Invalid URL' }); // Send JSON error
+  }
+
   try {
     const response = await axios({
-      method,
       url,
+      method,
       headers,
       data: body,
       validateStatus: () => true,
     });
     res.status(response.status).send(response.data);
   } catch (error) {
-    res.status(error.response?.status || 500).send(error.response?.data || { error: error.message });
+    res.status(error.response?.status || 500).json({ error: error.response?.data?.error || error.message }); // Send JSON error
   }
-  res.send(req.body)
-})
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-})
+});
