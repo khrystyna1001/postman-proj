@@ -3,7 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-const port = 3000;
+let server;
 
 app.use(cors());
 app.use(express.json());
@@ -36,6 +36,22 @@ app.all('/proxy', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+function startServer(port) {
+  server = app.listen(port, () => {
+    console.log(`Proxy server listening at http://localhost:${port}`);
+  });
+  return server;
+}
+
+function stopServer() {
+  if (server) {
+    server.close();
+  }
+}
+
+if (require.main === module) {
+  const defaultPort = process.env.PORT || 3000;
+  startServer(defaultPort);
+}
+
+module.exports = { app, startServer, stopServer };
