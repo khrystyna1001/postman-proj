@@ -10,6 +10,12 @@ function App() {
   const [responseHeaders, setResponseHeaders] = useState('');
   const [responseBody, setResponseBody] = useState('');
   const [history, setHistory] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleShowMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
 
   const handleSend = async () => {
     try {
@@ -21,24 +27,31 @@ function App() {
           acc[key] = value;
           return acc;
         }, {});
-
+  
       const response = await axios.post('http://localhost:3000/proxy', {
         url: url.trim(),
         method,
         headers: parsedHeaders,
         body,
       });
-
+  
       setResponseHeaders(JSON.stringify(response.headers, null, 2));
-      setResponseBody(JSON.stringify(response.data, null, 2));
-
+      setResponseBody(JSON.stringify(response.data, null, 2)); // Stringifying here is correct
+  
       setHistory(prevHistory => [
-        { url, method, headers, body, responseHeaders: JSON.stringify(response.headers, null, 2), responseBody: JSON.stringify(response.data, null, 2) },
+        {
+          url,
+          method,
+          headers,
+          body,
+          responseHeaders: JSON.stringify(response.headers, null, 2),
+          responseBody: JSON.stringify(response.data, null, 2), // Stringifying here is correct
+        },
         ...prevHistory,
       ]);
     } catch (error) {
       setResponseHeaders(JSON.stringify(error.response ? error.response.headers : {}, null, 2));
-      setResponseBody(JSON.stringify(error.response ? error.response.data : error.message, null, 2));
+      setResponseBody(JSON.stringify(error.response ? error.response.data : error.message, null, 2)); // Stringifying here is correct
     }
   };
 
@@ -61,7 +74,15 @@ function App() {
       </div>
       <div className="response-section">
         <pre>Headers: {responseHeaders}</pre>
-        <pre>Body: {responseBody}</pre>
+        <pre className={isExpanded ? 'expanded' : ''}>
+          {responseBody}
+        </pre>
+        {responseBody.length > 500 && (
+          <button className="show-more-button" onClick={handleShowMore}>
+            {isExpanded ? 'Show Less' : 'Show More'}
+          </button>
+        )}
+        
       </div>
       <div className="history-section">
         <h2>History</h2>
