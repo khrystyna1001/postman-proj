@@ -8,6 +8,10 @@ services:
       - "5713:5713"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
     depends_on:
       - backend
   backend:
@@ -18,3 +22,13 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"

@@ -73,8 +73,8 @@ function App() {
         <textarea placeholder="Body" value={body} onChange={e => setBody(e.target.value)} />
       </div>
       <div className="response-section">
-        <pre>Headers: {responseHeaders}</pre>
-        <pre className={isExpanded ? 'expanded' : ''}>
+        <pre style={{ margin: '15px' }}>Headers: {responseHeaders}</pre>
+        <pre className={isExpanded ? 'expanded' : ''} style={{ margin: '15px' }}>
           {responseBody}
         </pre>
         {responseBody.length > 500 && (
