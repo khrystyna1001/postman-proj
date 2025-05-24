@@ -1,11 +1,11 @@
-import './App.css';
+import '../App.css';
 import { Link } from 'react-router-dom';
 
-function Home() {
+function Navigation() {
   return (
     <div className="app">
         <nav>
-          <h1>My Postman</h1>
+          <h2>My Postman</h2>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -22,4 +22,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Navigation;
