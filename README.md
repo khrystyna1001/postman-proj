@@ -15,6 +15,6 @@ I think the name is already self-explanatory.
 in terminal run:
 docker-compose up --build
 
-frontend will be available at http://localhost:5713
-backend will be available at http://localhost:3000
+frontend will be available at http://localhost:5713 <br>
+backend will be available at http://localhost:3000 <br>
 mongodb will be available at http://localhost:27017
