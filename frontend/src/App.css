@@ -15,14 +15,25 @@ body {
   align-items: stretch; /* Stretch items to full width */
   width: 90%; /* Increased width */
   max-width: 900px;
-  background-color: #fff; /* White background for the app container */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.app nav ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app nav ul li {
+  list-style: none;
+}
+
+.app nav ul li a {
+  color: #fff;
+  text-decoration: none;
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: #fff;
   margin-bottom: 25px; /* More space below heading */
 }
 
