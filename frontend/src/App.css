@@ -1,205 +1,133 @@
+/* Reset and base styles */
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #333; /* Light background */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  padding: 0;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main app container */
 .app {
-  padding: 0; /* Increased padding */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch; /* Stretch items to full width */
-  width: 90%; /* Increased width */
+  padding-top: 80px; /* Space for fixed nav */
+  width: 90%;
   max-width: 90%;
+  margin: 0 auto;
 }
 
+/* Fixed navigation bar */
 .app nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5%;
-  width: 90%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 1rem 5%;
   z-index: 1000;
-}
-
-.app nav h2 {
-  color: #fff;
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .app nav ul {
-  display: flex;
-  justify-content: space-between;
-  max-height: 50px;
-  overflow: hidden;
+    display: flex;
+    gap: 60px;
 }
 
 .app nav ul li {
-  list-style: none;
-  margin-right: 45px;
+    list-style: none;
 }
 
 .app nav ul li a {
-  color: #fff;
-  text-decoration: none;
+    color: white;
 }
 
-h1 {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 25px; /* More space below heading */
+/* Main content area */
+.main-content {
+  padding: 20px;
+}
+
+/* Section spacing */
+.request-container,
+.headers-body,
+.requests-record,
+.history {
+  margin: 20px 0;
+  margin-left: 40px;
+  width: 90%;
+  box-sizing: border-box;
 }
 
 .request-section {
-  display: flex;
-  margin-bottom: 25px;
-  width: 100%;
+    display: flex;
+    gap: 20px;
 }
 
-.request-section input,
-.request-section select,
-.request-section button {
-  margin-right: 15px;
-  padding: 10px;
-  flex: 1;
-  border: 1px solid #ddd; /* Light border */
-  border-radius: 4px;
-  font-size: 14px;
+.request-section input {
+    width: 90%;
+    height: 30px;
+}
+
+.request-section select {
+    width: 90%;
+    height: 30px;
 }
 
 .request-section button {
-  background-color: #007bff; /* Blue button */
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-.request-section button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+    width: 90%;
+    height: 30px;
+    background-color: #333;
+    color: white;
 }
 
 .headers-body {
-  display: flex;
-  margin-bottom: 25px;
-  width: 100%;
+    display: flex;
+    gap: 20px;
 }
 
 .headers-body textarea {
-  flex: 1;
-  margin-right: 15px;
-  min-height: 180px; /* Increased textarea height */
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  resize: vertical; /* Allow vertical resizing */
+    width: 90%;
+    height: 100px;
 }
 
-.request-container {
-  padding: 1rem 5%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  width: 80%;
-  max-width: 80%;
-  margin: 0 auto;
-  margin-top: 25px;
-  justify-content: center;
-  max-height: 380px;
+.response-section {
+    max-width: 90%;
+    margin-left: 40px;
+    overflow: hidden;
 }
 
 .response-section pre {
-  background-color: #f9f9f9;
-  margin-top: 25px;
-  color: #333;
-  padding: 15px;
-  border-radius: 6px;
-  white-space: pre-wrap;
-  width: 100%;
-  border: 1px solid #eee;
-  font-size: 14px;
-  line-height: 1.6;
-  max-height: 300px; /* Initial max height */
-  overflow: hidden; /* Hide overflow */
-  position: relative; /* For gradient overlay */
+    margin: 15px;
+    max-width: 90%;
+    white-space: pre-wrap;
+    overflow: hidden;
+    word-break: break-word;
+    transition: max-height 0.3s ease-in-out;
 }
 
-.response-section pre.expanded {
-  max-height: none; /* Remove max height when expanded */
-  overflow: visible; /* Show all content */
+.response-section .response-body {
+    max-height: 200px;
+    max-width: 90%;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
 }
 
-.response-section .show-more-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-  align-self: center;
+.response-section .response-body.expanded {
+    max-height: 100%;
+    transition: max-height 0.3s ease-in-out;
 }
 
-.response-section .show-more-button:hover {
-  background-color: #0056b3;
+.show-more-button {
+    width: 90%;
+    height: 30px;
+    background-color: #333;
+    color: white;
+    margin-top: 10px; 
 }
 
-.response-section pre::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 90%;
-  height: 50px; /* Height of the gradient */
-  background: linear-gradient(to bottom, rgba(249, 249, 249, 0), #f9f9f9); /* Gradient overlay */
-  pointer-events: none; /* Ensure it doesn't interfere with clicks */
-}
-
-.response-section pre.expanded::after {
-  display: none; /* Hide gradient when expanded */
-}
-
-.history-section {
-  width: 100%;
-  margin-top: 25px; /* Add some space above the history section */
-}
-
-.history-section ul {
-  list-style: none;
-  padding: 0;
-  overflow: hidden;
-}
-
-.history-section li {
-  margin-bottom: 8px;
-  width: 100%;
-}
-
-.history-section li button {
-  width: 100%;
-  padding: 12px;
-  text-align: left;
-  background-color: #f8f8f8; /* Light background for history items */
-  border: 1px solid #eee;
-  border-radius: 4px;
-  color: #333;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.history-section li button:hover {
-  background-color: #f0f0f0; /* Slightly darker on hover */
+/* History section specific */
+.history {
+  margin-top: 0;
+  padding-top: 20px;
 }

@@ -7,29 +7,13 @@ function Request() {
     return(
         <div className='request-container'>
             <Navigation />
+            <br />
+            <br />
             <h1>Request</h1>
-
-            <Response />
-        {/* <div className="history-section">
-            <h2>History</h2>
-            <ul>
-            {history.map((item, index) => (
-                <li key={index}>
-                <button onClick={() => {
-                    setUrl(item.url);
-                    setMethod(item.method);
-                    setHeaders(item.headers);
-                    setBody(item.body);
-                    setResponseHeaders(item.responseHeaders);
-                    setResponseBody(item.responseBody);
-                }}>
-                    {item.method} {item.url}
-                </button>
-                </li>
-            ))}
-            </ul>
-        </div> */}
-    </div>
+            <div className="main-content">
+                <Response />
+            </div>
+        </div>
     );
 }
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import Navigation from '../components/Navigation';
 
 function Response() {
     const [url, setUrl] = useState('');
@@ -58,8 +57,8 @@ function Response() {
             </div>
             <div className="response-section">
                 <pre style={{ margin: '15px' }}>Headers: {responseHeaders}</pre>
-                <pre className={isExpanded ? 'expanded' : ''} style={{ margin: '15px' }}>
-                {responseBody}
+                <pre className={isExpanded ? 'expanded response-body' : 'response-body'} style={{ margin: '15px' }}>
+                Body: {responseBody}
                 </pre>
                 {responseBody.length > 500 && (
                 <button className="show-more-button" onClick={handleShowMore}>
