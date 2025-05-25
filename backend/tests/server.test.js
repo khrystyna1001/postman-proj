@@ -1,5 +1,7 @@
+require('./setup.test');
+
 const request = require('supertest');
-const { startServer, stopServer, app } = require('../server');
+const { startServer, stopServer } = require('../server');
 const axios = require('axios');
 
 jest.mock('axios');
@@ -15,14 +17,19 @@ describe('Proxy API', () => {
 
   afterAll(() => {
     stopServer();
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should proxy a GET request successfully', async () => {
-    const mockResponse = { data: { message: 'Test GET' } };
+    const mockResponse = { data: { message: 'Test GET' }, status: 200 };
     axios.mockResolvedValue(mockResponse);
 
     const response = await request(`http://localhost:${testPort}`)
-      .post('/proxy')
+      .post('/api/proxy')
       .send({
         url: 'http://www.example.com',
         method: 'GET',
@@ -32,14 +39,23 @@ describe('Proxy API', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockResponse.data);
+    expect(global.mockSave).toHaveBeenCalledTimes(1);
   });
 
   it('should handle errors from axios', async () => {
-    const mockError = { response: { status: 404, data: { message: 'Not Found' } } };
+    const mockError = { 
+      response: { 
+        status: 404, 
+        data: { 
+          error: 'Not Found' 
+        },
+        headers: {}, 
+      } 
+    };
     axios.mockRejectedValue(mockError);
 
     const response = await request(`http://localhost:${testPort}`)
-      .post('/proxy')
+      .post('/api/proxy')
       .send({
         url: 'http://example.com',
         method: 'GET',
@@ -48,6 +64,6 @@ describe('Proxy API', () => {
       });
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual(mockError.response.data);
+    expect(response.body).toEqual({ error: "Not Found" });
   });
 });

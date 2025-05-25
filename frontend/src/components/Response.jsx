@@ -53,7 +53,7 @@ function Response() {
             </div>
             <div className="headers-body">
                 <textarea placeholder="Headers (key: value, one per line)" value={headers} onChange={e => setHeaders(e.target.value)} />
-                <textarea placeholder="Body" value={body} onChange={e => setBody(e.target.value)} />
+                <textarea placeholder="Body (JSON or form-data)" value={body} onChange={e => setBody(e.target.value)} />
             </div>
             <div className="response-section">
                 <pre style={{ margin: '15px' }}>Headers: {responseHeaders}</pre>
