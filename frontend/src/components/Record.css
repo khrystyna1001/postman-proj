@@ -1,0 +1,191 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #2d2d2d;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: #e0e0e0;
+  position: relative;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #404040;
+  position: sticky;
+  top: 0;
+  background: #2d2d2d;
+  z-index: 10;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #a0a0a0;
+  cursor: pointer;
+  padding: 0 10px;
+  line-height: 1;
+}
+
+.close-button:hover {
+  color: #ffffff;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 20px;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+}
+
+.detail-section h3 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  background: #1e1e1e;
+  border-radius: 4px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Headers Styling */
+.headers {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.header-row {
+  display: flex;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+}
+
+.header-key {
+  font-weight: bold;
+  color: #4ec9b0;
+  min-width: 200px;
+}
+
+.header-value {
+  flex: 1;
+  color: #ce9178;
+  word-break: break-all;
+}
+
+/* JSON Body Styling */
+.json-body {
+  margin: 0;
+  white-space: pre;
+  overflow-x: auto;
+  color: #9cdcfe;
+}
+
+.raw-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Status Colors */
+.status-2xx {
+  color: #4caf50;
+}
+
+.status-3xx {
+  color: #2196f3;
+}
+
+.status-4xx {
+  color: #ff9800;
+}
+
+.status-5xx {
+  color: #f44336;
+}
+
+/* Method Colors */
+.method {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.method[data-method="GET"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+.method[data-method="POST"] {
+  background-color: #2196f3;
+  color: white;
+}
+
+.method[data-method="PUT"] {
+  background-color: #ff9800;
+  color: white;
+}
+
+.method[data-method="DELETE"] {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}

@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 connection;
 
-app.use('/api', proxyRouter);
+app.use(proxyRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to your Postman backend!');

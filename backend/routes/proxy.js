@@ -7,14 +7,21 @@ const router = express.Router();
 
 connection;
 
-router.all('/proxy', async (req, res) => {
+router.all('/', async (req, res) => {
   console.log('Received proxy request:', req.body);
-  const { url, method, headers, body } = req.body;
+  
+  // Validate required fields
+  if (!req.body || !req.body.url) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+  
+  const { url, method = 'GET', headers = {}, body } = req.body;
 
   try {
-    new URL(url); // Validate URL
+    // Validate URL
+    new URL(url);
   } catch (error) {
-    return res.status(400).json({ error: 'Invalid URL' }); // Send JSON error
+    return res.status(400).json({ error: `Invalid URL: ${url}` });
   }
 
   try {
@@ -45,6 +52,15 @@ router.all('/proxy', async (req, res) => {
 router.get('/history', async (req, res) => {
   try {
     const history = await RequestHistory.find().sort({ timestamp: -1 }).limit(25);
+    res.json(history);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+})
+
+router.get('/history/:id', async (req, res) => {
+  try {
+    const history = await RequestHistory.findById(req.params.id);
     res.json(history);
   } catch (error) {
     res.status(500).json({ error: error.message });
