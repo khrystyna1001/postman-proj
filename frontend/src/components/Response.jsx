@@ -3,13 +3,15 @@ import axios from 'axios';
 import './Response.css';
 
 function Response() {
+    // Request state
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('GET');
-    const [headers, setHeaders] = useState('Content-Type: application/json');
-    const [body, setBody] = useState('{\n  "key": "value"\n}');
     const [isLoading, setIsLoading] = useState(false);
+    const [headers, setHeaders] = useState('Content-Type: application/json');
+    const [body, setBody] = useState('{\n  "key": "value" \n}');
+    
+    // Response state
     const [response, setResponse] = useState(null);
-    const [activeTab, setActiveTab] = useState('response');
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleShowMore = () => setIsExpanded(!isExpanded);
@@ -117,13 +119,11 @@ function Response() {
                     </div>
                     <div className="response-tabs">
                         <button 
-                            className={`tab ${activeTab === 'response' ? 'active' : ''}`}
                             onClick={() => setActiveTab('response')}
                         >
                             Response
                         </button>
                         <button 
-                            className={`tab ${activeTab === 'headers' ? 'active' : ''}`}
                             onClick={() => setActiveTab('headers')}
                         >
                             Headers
@@ -132,7 +132,6 @@ function Response() {
                 </div>
 
                 <div className="response-content">
-                    {activeTab === 'response' ? (
                         <div className="response-body">
                             <pre className={`json-display ${isExpanded ? 'expanded' : ''}`}>
                                 {formatJson(response.data)}
@@ -146,7 +145,6 @@ function Response() {
                                 </button>
                             )}
                         </div>
-                    ) : (
                         <div className="response-headers">
                             {formatHeaders(response.headers).map(({ key, value }) => (
                                 <div key={key} className="header-row">
@@ -155,7 +153,6 @@ function Response() {
                                 </div>
                             ))}
                         </div>
-                    )}
                 </div>
             </div>
         );
@@ -193,13 +190,6 @@ function Response() {
                     </button>
                 </div>
 
-                <div className="request-tabs">
-                    <div className="tab active">Params</div>
-                    <div className="tab">Auth</div>
-                    <div className="tab">Headers</div>
-                    <div className="tab">Body</div>
-                </div>
-
                 <div className="request-body">
                     <div className="tab-content">
                         <h3>Headers</h3>
@@ -209,6 +199,7 @@ function Response() {
                             value={headers}
                             onChange={(e) => setHeaders(e.target.value)}
                             rows={4}
+                            disabled={isLoading || !url.trim()}
                         />
                     </div>
                     <div className="tab-content">
@@ -217,8 +208,11 @@ function Response() {
                             className="body-input"
                             value={body}
                             onChange={(e) => setBody(e.target.value)}
-                            placeholder="{\n  \"key\": \"value\"\n}"
+                            placeholder={`{
+                                "key": "value"
+                                }`}
                             rows={10}
+                            disabled={isLoading || !url.trim() || method === 'GET'}
                         />
                     </div>
                 </div>
