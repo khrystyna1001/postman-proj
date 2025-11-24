@@ -2,7 +2,7 @@
 
 ## Description
 
-I think the name is already self-explanatory.
+This pet project is my analogy to postman. It highlights my knowledge of MERN technology.
 
 ## Tech Stack
 
